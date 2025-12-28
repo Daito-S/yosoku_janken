@@ -24,7 +24,7 @@ htmlcov/
 coverage.xml
 
 # IDEs
-# .vscode/
+.vscode/
 .idea/
 
 # OS files
