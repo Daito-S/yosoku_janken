@@ -1,6 +1,6 @@
 from ai.simple_ai import Simple_ai
 from ai.markov_ai import Markov_ai
-from hand_enum import Hand
+from enums import Hand
 
 def janken():
   for i in range(10):

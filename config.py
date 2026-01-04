@@ -1,13 +1,18 @@
 import os
 import sys
 
-
+# <-----スクリーン----->
 WIDTH, HEIGHT = 800, 600
+LEFT_WIDTH = WIDTH * 0.65
+RIGHT_WIDTH = WIDTH * 0.35
 
 # <-----色----->
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-GRAY = (40, 40, 40)
+GRAY = (100, 100, 100)
+
+# <-----手のボタン----->
+button_W, button_H = 32, 51
 
 # <-----パス----->
 # ''' BASE_PATH を実行環境に応じて切り替える関数等
@@ -27,4 +32,14 @@ GRAY = (40, 40, 40)
 '''
 # フォント
 font_path = "assets/fonts/ipaexm.ttf"
+
+# ボタン
+rock_path = ["assets/images/rock/rock_0.png",
+             "assets/images/rock/rock_1.png"]
+
+scissors_path = ["assets/images/scissors/scissors_0.png",
+             "assets/images/scissors/scissors_1.png"]
+
+paper_path = ["assets/images/paper/paper_0.png",
+             "assets/images/paper/paper_1.png"]
 
