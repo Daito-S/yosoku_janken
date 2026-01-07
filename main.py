@@ -15,13 +15,19 @@ def main():
   running = True
 
   # ---フォント---
-  font = pg.font.Font(cf.font_path, 30)
+  font = pg.font.Font(cf.font_path, 40)
 
   # ---ボタン---
   button_hand_group = pg.sprite.Group()
-  button_rock = Button(cf.rock_path, 100, 400, Hand.ROCK)
+  # グー
+  button_rock = Button(cf.rock_path, 45, 400, Hand.ROCK)
   button_hand_group.add(button_rock)
-
+  # チョキ
+  button_scissors = Button(cf.scissors_path, 215, 400, Hand.SCISSORS)
+  button_hand_group.add(button_scissors)
+  # パー
+  button_paper = Button(cf.paper_path, 385, 400, Hand.PAPER)
+  button_hand_group.add(button_paper)
 
   # <-----メインループ----->
   while running:
@@ -31,7 +37,13 @@ def main():
 
       # クリック
       if event.type == pg.MOUSEBUTTONDOWN:
-        mouse_pos = event.pos
+        click_pos = event.pos
+
+    # クリックしていなくてもマウス位置を取得
+    mouse_pos = pg.mouse.get_pos()
+
+    # ---更新---
+    button_hand_group.update(mouse_pos)
 
     # ---画面描画---
     screen.fill(cf.WHITE)
@@ -40,8 +52,8 @@ def main():
 
     button_hand_group.draw(screen)
 
-    hello_world = font.render("Hello World!", True, (0, 0, 0))
-    screen.blit(hello_world, (40, 40))
+    text_you = font.render("YOU", True, (0, 0, 0))
+    screen.blit(text_you, (220, 550))
 
     pg.display.update()
     clock.tick(60)

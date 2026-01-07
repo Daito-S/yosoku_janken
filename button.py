@@ -26,7 +26,20 @@ class Button(pg.sprite.Sprite):
 
   def check_clicked(self, pos):
     # クリックした位置が自分の範囲内にあるか調べる
-    clicked = self.rect.collidepoint(pos)
-    if clicked:
+    if self.rect.collidepoint(pos):
       self.status = Button_status.CLICKED
       return self.hand
+
+  def mouse_on(self, pos):
+    # マウスが自分の範囲内にあるなら色を反転
+    if self.rect.collidepoint(pos):
+      self.status = Button_status.MOUSE_ON
+    else:
+      self.status = Button_status.NORMAL
+
+  def update(self, pos):
+    self.mouse_on(pos)
+    if self.status == Button_status.MOUSE_ON:
+      self.image = self.images[1]
+    else:
+      self.image = self.images[0]
