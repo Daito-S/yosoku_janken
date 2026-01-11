@@ -50,8 +50,14 @@ def main():
 
   # <-----AIの決定(仮)----->
   AI = Simple_ai()
+  AI_hand = None
   # プレイヤーの手
   player_hand = None
+
+  # 一つの手でAIが連続して学習、予測しないようにするための変数
+  READY = False
+  # クリック
+  clicked = False
 
   # <-----メインループ----->
   while running:
@@ -61,32 +67,32 @@ def main():
 
       # クリック
       if event.type == pg.MOUSEBUTTONDOWN:
-        click_pos = event.pos
-        clicked = True
-      else:
-        clicked = False
+        # プレイヤーの手を調べる
+        if not READY:
+          if button_rock.check_clicked(event.pos):
+            player_hand = button_rock.hand
+            READY = True
+          elif button_scissors.check_clicked(event.pos):
+            player_hand = button_scissors.hand
+            READY = True
+          elif button_paper.check_clicked(event.pos):
+            player_hand = button_paper.hand
+            READY = True
+          # else:
+          #   player_hand = None
 
     # クリックしていなくてもマウス位置を取得
     mouse_pos = pg.mouse.get_pos()
 
     # ---更新---
-    # プレイヤーの手を調べる
-    if clicked and player_hand is None:
-      if button_rock.check_clicked(click_pos):
-        player_hand = button_rock.hand
-      elif button_scissors.check_clicked(click_pos):
-        player_hand = button_scissors.hand
-      elif button_paper.check_clicked(click_pos):
-        player_hand = button_paper.hand
-      else:
-        player_hand = None
 
     # AIの手を決める
-    if player_hand is not None:
-      ai_hand = AI.prediction()
+    if READY:
+      AI_hand = AI.prediction()
       AI.learn(player_hand)
+      READY = False
 
-    button_hand_group.update(mouse_pos)
+    button_hand_group.update(mouse_pos, player_hand)
     ai_hand_group.update()
 
     # ---画面描画---
@@ -94,8 +100,8 @@ def main():
     pg.draw.line(screen, cf.GRAY, (cf.LEFT_WIDTH, 0),
                  (cf.LEFT_WIDTH, cf.HEIGHT), 3)
 
-    button_hand_group.draw(screen, player_hand)
-    ai_hand_group.draw(screen)
+    button_hand_group.draw(screen)
+    ai_hand_group.draw(screen, AI_hand)
 
     # 文字列
     screen.blit(text_you, (220, 550))

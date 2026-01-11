@@ -1,7 +1,7 @@
 import pygame as pg
 
 import config as cf
-from enums import Hand, Button_status
+from enums import Hand, Button_status, Button_status_click
 
 # 手を選択するのに使うボタンのクラス
 class Button(pg.sprite.Sprite):
@@ -19,36 +19,54 @@ class Button(pg.sprite.Sprite):
 
     # 矩形
     self.rect = pg.Rect(x, y, self.width, self.height) # x,yは左,上
+    self.y = y
     # 手
     self.hand = hand
     # ステータス
     self.status = Button_status.NORMAL
+    self.status_click = Button_status_click.UNCLICKED
 
   def check_clicked(self, pos):
     # クリックした位置が自分の範囲内にあるか調べる
     if self.rect.collidepoint(pos):
-      self.status = Button_status.CLICKED
+      self.status_click = Button_status_click.CLICKED
       return True
     else:
+      self.status_click = Button_status_click.UNCLICKED
       return False
 
   def mouse_on(self, pos):
-    # マウスが自分の範囲内にあるなら色を反転
+    # マウスが自分の範囲内にあるか見る
     if self.rect.collidepoint(pos):
       self.status = Button_status.MOUSE_ON
     else:
       self.status = Button_status.NORMAL
+      self.status_click = Button_status_click.UNCLICKED
 
-  def update(self, pos):
-    self.mouse_on(pos)
-    if self.status == Button_status.MOUSE_ON:
-      self.image = self.images[1]
-    else:
+  def update(self, pos, player_hand):
+    # 自身の手が選択されたら大きめに前に出す
+    if self.status_click == Button_status_click.CLICKED:
       self.image = self.images[0]
+      self.rect.y = self.y - 45
+      self.status_click = Button_status_click.CLICKED_WAIT
+    else:
+      # 色を反転・少し前に出す
+      self.mouse_on(pos)
+      if self.status == Button_status.MOUSE_ON:
+        self.image = self.images[1]
+        if self.status_click == Button_status_click.CLICKED_WAIT:
+          self.rect.y = self.y - 45
+        else:
+          self.rect.y = self.y - 15
+      else:
+        self.image = self.images[0]
+        if self.status_click == Button_status_click.CLICKED_WAIT:
+          self.rect.y = self.y - 45
+        else:
+          self.rect.y = self.y
 
-  def draw(self, screen, player_hand):
-    if player_hand == self.hand or player_hand is None:
-      screen.blit(self.image, self.rect)
+  def draw(self, screen):
+    screen.blit(self.image, self.rect)
 
 
 
@@ -74,3 +92,7 @@ class Ai_hand_img(pg.sprite.Sprite):
     self.hand = hand
     # ステータス
     self.status = Button_status.NORMAL
+
+  def draw(self, screen, ai_hand):
+    if ai_hand == self.hand or ai_hand is None:
+      screen.blit(self.image, self.rect)

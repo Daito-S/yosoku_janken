@@ -8,4 +8,8 @@ class Hand(Enum):
 class Button_status(Enum):
   NORMAL = 0
   MOUSE_ON = 1
-  CLICKED = 2
+
+class Button_status_click(Enum):
+  UNCLICKED = 0
+  CLICKED = 1
+  CLICKED_WAIT = 2
