@@ -101,7 +101,8 @@ def main():
                  (cf.LEFT_WIDTH, cf.HEIGHT), 3)
 
     button_hand_group.draw(screen)
-    ai_hand_group.draw(screen, AI_hand)
+    for sprite in ai_hand_group:
+      sprite.draw(screen, AI_hand)
 
     # 文字列
     screen.blit(text_you, (220, 550))
