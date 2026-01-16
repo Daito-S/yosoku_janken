@@ -2,7 +2,8 @@ import sys
 import pygame as pg
 
 import config as cf
-from enums import Hand
+from enums import Hand, Judge_result
+from judge import judge
 from button import Button, Ai_hand_img
 from ai.simple_ai import Simple_ai
 from ai.markov_ai import Markov_ai
@@ -17,12 +18,18 @@ def main():
   running = True
 
   # ---フォント---
-  font = pg.font.Font(cf.font_path, 40)
+  font_L = pg.font.Font(cf.font_path, 40)
+  font_M = pg.font.Font(cf.font_path, 30)
+  font_S = pg.font.Font(cf.font_path, 20)
 
   # ---文字列---
-  text_you = font.render("YOU", True, (0, 0, 0))
-  text_ai = font.render("AI", True, (0, 0, 0))
-  text_ai_hand = font.render("", True, (0, 0, 0))
+  text_you = font_L.render("YOU", True, (0, 0, 0))
+  text_ai = font_L.render("AI", True, (0, 0, 0))
+  text_result = font_L.render("RESULT", True, (0, 0, 0))
+  text_judge = [font_L.render("WIN", True, (0, 0, 0)),
+                font_L.render("LOSE", True, (0, 0, 0)),
+                font_L.render("DRAW", True, (0, 0, 0))]
+  text_judgement_count = None
 
   # ---ボタン---
   button_hand_group = pg.sprite.Group()
@@ -53,6 +60,12 @@ def main():
   AI_hand = None
   # プレイヤーの手
   player_hand = None
+  # 勝敗
+  judgement = None
+  # 勝敗のカウント
+  judgement_count = {Judge_result.WIN: 0,
+                     Judge_result.LOSE: 0,
+                     Judge_result.DRAW: 0}
 
   # 一つの手でAIが連続して学習、予測しないようにするための変数
   READY = False
@@ -78,17 +91,19 @@ def main():
           elif button_paper.check_clicked(event.pos):
             player_hand = button_paper.hand
             READY = True
-          # else:
-          #   player_hand = None
 
     # クリックしていなくてもマウス位置を取得
     mouse_pos = pg.mouse.get_pos()
 
-    # ---更新---
+    # -----更新-----
 
-    # AIの手を決める
+    # AIの手を決める・勝敗判定
     if READY:
       AI_hand = AI.prediction()
+
+      judgement = judge(player_hand, AI_hand)
+      judgement_count[judgement] += 1
+
       AI.learn(player_hand)
       READY = False
 
@@ -104,11 +119,20 @@ def main():
     for sprite in ai_hand_group:
       sprite.draw(screen, AI_hand)
 
-    # 文字列
+    # ---文字列---
     screen.blit(text_you, (220, 550))
     screen.blit(text_ai, (240, 7))
+    screen.blit(text_result, (580, 10))
 
-    screen.blit(text_ai_hand, (220, 250))
+    if judgement != None:
+      screen.blit(text_judge[judgement.value], (220, 220))
+
+    # 勝敗のカウント
+    count_str = [font_M.render(f"WIN: {judgement_count[Judge_result.WIN]}", True, (0, 0, 0)),
+                 font_M.render(f"LOSE: {judgement_count[Judge_result.LOSE]}", True, (0, 0, 0)),
+                 font_M.render(f"DRAW: {judgement_count[Judge_result.DRAW]}", True, (0, 0, 0))]
+    for i, text in enumerate(count_str):
+      screen.blit(text, (540, 90 + i * 50))
 
     pg.display.update()
     clock.tick(60)
