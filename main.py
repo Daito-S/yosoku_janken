@@ -8,20 +8,7 @@ from button import Button, Ai_hand_img
 from ai.simple_ai import Simple_ai
 from ai.markov_ai import Markov_ai
 
-def main():
-  # <-----初期設定----->
-  pg.init()
-  screen = pg.display.set_mode((cf.WIDTH, cf.HEIGHT))
-  pg.display.set_caption('予測じゃんけん')
-
-  clock = pg.time.Clock()
-  running = True
-
-  # ---フォント---
-  font_L = pg.font.Font(cf.font_path, 40)
-  font_M = pg.font.Font(cf.font_path, 30)
-  font_S = pg.font.Font(cf.font_path, 20)
-
+def main(game_running):
   # ---文字列---
   text_you = font_L.render("YOU", True, (0, 0, 0))
   text_ai = font_L.render("AI", True, (0, 0, 0))
@@ -73,8 +60,9 @@ def main():
   clicked = False
 
   # <-----メインループ----->
-  while running:
+  while game_running:
     for event in pg.event.get():
+      # 終了イベント
       if event.type == pg.QUIT:
         running = False
 
@@ -141,4 +129,20 @@ def main():
   sys.exit()
 
 if __name__ == '__main__':
-  main()
+  # <-----初期設定----->
+  pg.init()
+  screen = pg.display.set_mode((cf.WIDTH, cf.HEIGHT))
+  pg.display.set_caption('予測じゃんけん')
+
+  clock = pg.time.Clock()
+  running = True
+  title_running = True
+  game_running = True
+
+  # ---フォント---
+  font_L = pg.font.Font(cf.font_path, 40)
+  font_M = pg.font.Font(cf.font_path, 30)
+  font_S = pg.font.Font(cf.font_path, 20)
+  # <-----メインループ----->
+  while running:
+    main(game_running)

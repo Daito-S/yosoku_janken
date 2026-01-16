@@ -30,10 +30,13 @@ button_W, button_H = 32, 51
 
 ''' パス
 '''
-# フォント
+# ---フォント---
 font_path = "assets/fonts/ipaexm.ttf"
 
-# ボタン
+# ---ボタン---
+start_path = ["assets/images/starts/start_0.png",
+              "assets/images/starts/start_1.png"]
+# じゃんけんの手
 rock_path = ["assets/images/rock/rock_0.png",
              "assets/images/rock/rock_1.png"]
 
@@ -43,3 +46,12 @@ scissors_path = ["assets/images/scissors/scissors_0.png",
 paper_path = ["assets/images/paper/paper_0.png",
              "assets/images/paper/paper_1.png"]
 
+# AIのレベル
+level1_path = ["assets/images/ai_level/level1/level1_0.png",
+               "assets/images/ai_level/level1/level1_1.png"]
+
+level2_path = ["assets/images/ai_level/level2/level2_0.png",
+               "assets/images/ai_level/level2/level2_1.png"]
+
+level3_path = ["assets/images/ai_level/level3/level3_0.png",
+               "assets/images/ai_level/level3/level3_1.png"]
