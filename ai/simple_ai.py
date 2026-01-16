@@ -1,6 +1,9 @@
-# 一番シンプルなAI
+''' 
+    一番シンプルなAI
+    プレイヤーの一番出している手から次の手を予測する
+'''
 from ai.base_ai import Base
-from hand_enum import Hand
+from enums import Hand
 
 class Simple_ai(Base):
   def __init__(self):
