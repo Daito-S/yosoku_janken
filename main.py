@@ -7,8 +7,11 @@ from judge import judge
 from button import Button, Ai_hand_img
 from ai.simple_ai import Simple_ai
 from ai.markov_ai import Markov_ai
+from title import title
 
-def main(game_running):
+def main(running, title_running, AI_LEVEL):
+  # <-----初期設定----->
+
   # ---文字列---
   text_you = font_L.render("YOU", True, (0, 0, 0))
   text_ai = font_L.render("AI", True, (0, 0, 0))
@@ -42,8 +45,15 @@ def main(game_running):
   ai_paper_img = Ai_hand_img(cf.paper_path, 385, 50, Hand.PAPER)
   ai_hand_group.add(ai_paper_img)
 
-  # <-----AIの決定(仮)----->
-  AI = Simple_ai()
+  # ---AIの決定(仮)---
+  if AI_LEVEL == 1:
+    AI = Simple_ai()
+  elif AI_LEVEL == 2:
+    AI = Markov_ai()
+  elif AI_LEVEL == 3:
+    AI = Simple_ai()      # --------要修正---------
+
+  # ---変数---
   AI_hand = None
   # プレイヤーの手
   player_hand = None
@@ -54,13 +64,14 @@ def main(game_running):
                      Judge_result.LOSE: 0,
                      Judge_result.DRAW: 0}
 
-  # 一つの手でAIが連続して学習、予測しないようにするための変数
+  # 一回の手でAIが連続して学習、予測しないようにするための変数
   READY = False
   # クリック
   clicked = False
 
-  # <-----メインループ----->
-  while game_running:
+
+  # <-------メインループ------->
+  while not title_running:
     for event in pg.event.get():
       # 終了イベント
       if event.type == pg.QUIT:
@@ -83,7 +94,7 @@ def main(game_running):
     # クリックしていなくてもマウス位置を取得
     mouse_pos = pg.mouse.get_pos()
 
-    # -----更新-----
+    # -------更新-------
 
     # AIの手を決める・勝敗判定
     if READY:
@@ -95,10 +106,11 @@ def main(game_running):
       AI.learn(player_hand)
       READY = False
 
-    button_hand_group.update(mouse_pos, player_hand)
+    button_hand_group.update(mouse_pos)
     ai_hand_group.update()
 
-    # ---画面描画---
+    # ------画面描画------
+
     screen.fill(cf.WHITE)
     pg.draw.line(screen, cf.GRAY, (cf.LEFT_WIDTH, 0),
                  (cf.LEFT_WIDTH, cf.HEIGHT), 3)
@@ -125,8 +137,8 @@ def main(game_running):
     pg.display.update()
     clock.tick(60)
 
-  pg.quit()
-  sys.exit()
+  return running, title_running
+
 
 if __name__ == '__main__':
   # <-----初期設定----->
@@ -137,12 +149,18 @@ if __name__ == '__main__':
   clock = pg.time.Clock()
   running = True
   title_running = True
-  game_running = True
 
   # ---フォント---
   font_L = pg.font.Font(cf.font_path, 40)
   font_M = pg.font.Font(cf.font_path, 30)
   font_S = pg.font.Font(cf.font_path, 20)
+
   # <-----メインループ----->
   while running:
-    main(game_running)
+    if title_running:
+      running, title_running, AI_LEVEL = title(running, title_running)
+    else:
+      running, title_running = main(running, title_running, AI_LEVEL)
+
+  pg.quit()
+  sys.exit()

@@ -43,7 +43,7 @@ class Button(pg.sprite.Sprite):
       self.status = Button_status.NORMAL
       self.status_click = Button_status_click.UNCLICKED
 
-  def update(self, pos, player_hand):
+  def update(self, pos):
     # 自身の手が選択されたら大きめに前に出す
     if self.status_click == Button_status_click.CLICKED:
       self.image = self.images[0]
