@@ -3,15 +3,15 @@ import pygame as pg
 
 import config as cf
 
-from game import game
-from title import title
+from game.game import game
+from game.title import title
 
 
 if __name__ == '__main__':
   # <-----初期設定----->
   pg.init()
   screen = pg.display.set_mode((cf.WIDTH, cf.HEIGHT))
-  pg.display.set_caption('予測じゃんけん')
+  pg.display.set_caption('YosokuJanken')
 
   clock = pg.time.Clock()
   running = True

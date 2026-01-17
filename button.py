@@ -86,7 +86,6 @@ class Title_button(pg.sprite.Sprite):
     self.rect = pg.Rect(x, y, self.width, self.height) # x,yは左,上
     self.y = y
     # ステータス
-    self.status = Button_status.NORMAL
     self.level = level
 
   def check_clicked(self, pos):
@@ -96,26 +95,27 @@ class Title_button(pg.sprite.Sprite):
     else:
       return False
 
-  # def mouse_on(self, pos):
-  #   # マウスが自分の範囲内にあるか見る
-  #   if self.rect.collidepoint(pos):
-  #     self.status = Button_status.MOUSE_ON
-  #   else:
-  #     self.status = Button_status.NORMAL
-
-  def update(self, level):
-    if level == self.level:
-      self.image = self.images[1]
+  # 注意 -> 他のクラスと処理が違う
+  def mouse_on(self, pos):
+    # マウスが自分の範囲内にあるか見る
+    if self.rect.collidepoint(pos):
+      return True
     else:
-      self.image = self.images[0]
-    # # 色を反転・少し前に出す
-    # self.mouse_on(pos)
-    # if self.status == Button_status.MOUSE_ON:
-    #   self.image = self.images[1]
-    #   if not (self.status == Button_status.MOUSE_ON and not (self.status == Button_status.MOUSE_ON)):
-    #     pass
-    #   else:
-    #     pass
+      return False
+
+  def update(self, level, mouse_pos):
+    # self.levelがちゃんと数字の時
+    if self.level != None:
+      if level == self.level:
+        self.image = self.images[1]
+      else:
+        self.image = self.images[0]
+    # Noneならマウスの位置を見て色を反転
+    else:
+      if self.mouse_on(mouse_pos):
+        self.image = self.images[1]
+      else:
+        self.image = self.images[0]
 
   def draw(self, screen):
     screen.blit(self.image, self.rect)
