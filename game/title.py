@@ -10,7 +10,7 @@ def title(running, title_running, fonts, screen, clock):
   AI_LEVEL = 1 # 選択されなかったら一番低いレベルのままになる
   # -----文字列-----
   font_L, font_M, font_S = fonts
-  text_title = font_L.render("-------予測じゃんけん-------", True, (0, 0, 0))
+  text_title = font_L.render("-------YosokuJanken-------", True, (0, 0, 0))
   text_now = font_M.render("Now", True, (0, 0, 0))
   # -----ボタン-----
   button_group = pg.sprite.Group()

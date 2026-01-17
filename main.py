@@ -3,8 +3,8 @@ import pygame as pg
 
 import config as cf
 
-from game import game
-from title import title
+from game.game import game
+from game.title import title
 
 
 if __name__ == '__main__':
