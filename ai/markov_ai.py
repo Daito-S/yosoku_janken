@@ -30,9 +30,10 @@ class Markov_ai(Base):
   def prediction(self):
     # 一回目は記録できない、予測できないのでとりあえずランダムで手を出す
     if self.last_player_hand == None:
-      return self.hand_list[randint(0,2)]
+      return self.hand_list[randint(0, 2)]
     # 次のプレイヤーの手を予測
-    predicted = max(self.record[self.last_player_hand], key=self.record.get)
+    predicted = max(self.record[self.last_player_hand],
+                    key=self.record[self.last_player_hand].get)
 
     # 勝てる手を返す
     return self.hand_list[predicted.value - 1]
