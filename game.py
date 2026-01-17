@@ -6,6 +6,7 @@ from judge import judge
 from button import Button, Title_button, Ai_hand_img
 from ai.simple_ai import Simple_ai
 from ai.markov_ai import Markov_ai
+from ai.ngram_ai import Ngram_ai
 
 
 def game(running, title_running, AI_LEVEL, fonts, screen, clock):
@@ -49,13 +50,13 @@ def game(running, title_running, AI_LEVEL, fonts, screen, clock):
   # タイトル画面に戻るためのボタン
   button_back_title = Title_button(cf.reset_path, 580, 450, None)
 
-  # ---AIの決定(仮)---
+  # <--------AIの決定-------->
   if AI_LEVEL == 1:
     AI = Simple_ai()
   elif AI_LEVEL == 2:
     AI = Markov_ai()
   elif AI_LEVEL == 3:
-    AI = Simple_ai()      # --------要修正---------
+    AI = Ngram_ai()
 
   # ---変数---
   AI_hand = None
@@ -114,6 +115,7 @@ def game(running, title_running, AI_LEVEL, fonts, screen, clock):
       READY = False
 
     button_hand_group.update(mouse_pos)
+    button_back_title.update(None, mouse_pos)
     ai_hand_group.update()
 
     # ------画面描画------
