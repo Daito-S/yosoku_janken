@@ -69,6 +69,57 @@ class Button(pg.sprite.Sprite):
     screen.blit(self.image, self.rect)
 
 
+# タイトルのボタンのクラス
+class Title_button(pg.sprite.Sprite):
+  def __init__(self, images_path, x, y, level):
+    super().__init__()
+    # 画像
+    self.images = []
+    for i in images_path:
+      img = pg.transform.scale(pg.image.load(i).convert_alpha(),(cf.title_button_W * 6, cf.title_button_H * 6))
+      self.images.append(img)
+
+    self.image = self.images[0]
+    self.width, self.height = self.image.get_size() # (width,height)
+
+    # 矩形
+    self.rect = pg.Rect(x, y, self.width, self.height) # x,yは左,上
+    self.y = y
+    # ステータス
+    self.status = Button_status.NORMAL
+    self.level = level
+
+  def check_clicked(self, pos):
+    # クリックした位置が自分の範囲内にあるか調べる
+    if self.rect.collidepoint(pos):
+      return True
+    else:
+      return False
+
+  # def mouse_on(self, pos):
+  #   # マウスが自分の範囲内にあるか見る
+  #   if self.rect.collidepoint(pos):
+  #     self.status = Button_status.MOUSE_ON
+  #   else:
+  #     self.status = Button_status.NORMAL
+
+  def update(self, level):
+    if level == self.level:
+      self.image = self.images[1]
+    else:
+      self.image = self.images[0]
+    # # 色を反転・少し前に出す
+    # self.mouse_on(pos)
+    # if self.status == Button_status.MOUSE_ON:
+    #   self.image = self.images[1]
+    #   if not (self.status == Button_status.MOUSE_ON and not (self.status == Button_status.MOUSE_ON)):
+    #     pass
+    #   else:
+    #     pass
+
+  def draw(self, screen):
+    screen.blit(self.image, self.rect)
+
 
 # AIの手(ボタンではない)
 class Ai_hand_img(pg.sprite.Sprite):

@@ -13,6 +13,8 @@ GRAY = (100, 100, 100)
 
 # <-----手のボタン----->
 button_W, button_H = 32, 51
+# タイトルのボタン
+title_button_W, title_button_H = 24, 12
 
 # <-----パス----->
 # ''' BASE_PATH を実行環境に応じて切り替える関数等
@@ -36,6 +38,9 @@ font_path = "assets/fonts/ipaexm.ttf"
 # ---ボタン---
 start_path = ["assets/images/starts/start_0.png",
               "assets/images/starts/start_1.png"]
+
+reset_path = ["assets/images/reset/reset_0.png",
+              "assets/images/reset/reset_1.png"]
 # じゃんけんの手
 rock_path = ["assets/images/rock/rock_0.png",
              "assets/images/rock/rock_1.png"]
