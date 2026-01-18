@@ -1,7 +1,7 @@
 import pygame as pg
 
-import config as cf
-from enums import Hand, Button_status, Button_status_click
+import src.config as cf
+from src.enums import Hand, Button_status, Button_status_click
 
 # 手を選択するのに使うボタンのクラス
 class Button(pg.sprite.Sprite):

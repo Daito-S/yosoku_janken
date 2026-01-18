@@ -1,8 +1,8 @@
 import sys
 import pygame as pg
 
-import config as cf
-from button import Title_button
+import src.config as cf
+from src.button import Title_button
 
 def title(running, title_running, fonts, screen, clock):
   # <-----初期設定----->
