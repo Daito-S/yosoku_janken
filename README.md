@@ -27,6 +27,7 @@ Pythonのpygameで作成したAIとじゃんけんができるシンプルなゲ
 - 画面左側
     - じゃんけんボタン
     <img src = "images_README/hand.png" width="500px">
+
     じゃんけんでどの手を出すか決められます。マウスがボタンの上にあると枠以外の色が反転し、クリックすると少し前に進みます。<br>
     (マウスが離れると元に戻ります。)<br><br>
     手を決めるとAIもプレイヤーの手を予測して手を出してきます。そして勝負！結果が画面中央に表示され、後述のRESULTの箇所に記録されます。<br><br>
@@ -35,11 +36,13 @@ Pythonのpygameで作成したAIとじゃんけんができるシンプルなゲ
 
 - 画面右側
     - RESULT
-    <img src = "images_README/result.png" width="500px">
+    <img src = "images_README/result.png" width="300px">
+
     じゃんけんの勝敗数が記録されます。レベルごとに勝ち負けの数がどう変わるか注目してみてください。
 
     - SETTING
-    <img src = "images_README/setting.png" width="500px">
+    <img src = "images_README/setting.png" width="300px">
+
     AIのレベルを確認できます。また、RESETボタンを押せばタイトル画面に戻れます。<br>
     (AIの学習もリセットされるので注意！)
 
