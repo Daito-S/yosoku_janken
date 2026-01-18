@@ -10,6 +10,7 @@ RIGHT_WIDTH = WIDTH * 0.35
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GRAY = (100, 100, 100)
+LIGHT_GRAY = (235, 235, 235)
 
 # <-----手のボタン----->
 button_W, button_H = 32, 51
