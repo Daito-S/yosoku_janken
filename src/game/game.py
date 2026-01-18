@@ -17,11 +17,13 @@ def game(running, title_running, AI_LEVEL, fonts, screen, clock):
 
   text_you = font_L.render("YOU", True, (0, 0, 0))
   text_ai = font_L.render("AI", True, (0, 0, 0))
-  text_result = font_L.render("RESULT", True, (0, 0, 0))
   text_judge = [font_L.render("WIN", True, (0, 0, 0)),
                 font_L.render("LOSE", True, (0, 0, 0)),
                 font_L.render("DRAW", True, (0, 0, 0))]
+  text_result = font_L.render("RESULT", True, (0, 0, 0))
   text_judgement_count = None
+  text_setting = font_L.render("SETTING", True, (0, 0, 0))
+  text_ai_level = font_M.render(f"LEVEL：{AI_LEVEL}", True, (0, 0, 0))
 
   # ---ボタン---
   button_hand_group = pg.sprite.Group()
@@ -123,7 +125,11 @@ def game(running, title_running, AI_LEVEL, fonts, screen, clock):
     screen.fill(cf.WHITE)
     pg.draw.line(screen, cf.GRAY, (cf.LEFT_WIDTH, 0),
                  (cf.LEFT_WIDTH, cf.HEIGHT), 3)
+    # ---四角---
+    for i in range(2):
+      pg.draw.rect(screen, cf.LIGHT_GRAY, (535, 75 + i * 300, 245, 170), border_radius=15)
 
+    # ---ボタン---
     button_hand_group.draw(screen)
     for sprite in ai_hand_group:
       sprite.draw(screen, AI_hand)
@@ -131,9 +137,11 @@ def game(running, title_running, AI_LEVEL, fonts, screen, clock):
     button_back_title.draw(screen)
 
     # ---文字列---
-    screen.blit(text_you, (220, 550))
+    screen.blit(text_you, (217, 550))
     screen.blit(text_ai, (240, 7))
-    screen.blit(text_result, (580, 10))
+    screen.blit(text_result, (575, 35))
+    screen.blit(text_setting, (565, 335))
+    screen.blit(text_ai_level, (580, 400))
 
     if judgement != None:
       screen.blit(text_judge[judgement.value], (220, 220))
