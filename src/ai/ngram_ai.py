@@ -6,8 +6,8 @@
 from collections import defaultdict
 from random import randint
 
-from ai.base_ai import Base
-from enums import Hand
+from src.ai.base_ai import Base
+from src.enums import Hand
 
 class Ngram_ai(Base):
   def __init__(self):

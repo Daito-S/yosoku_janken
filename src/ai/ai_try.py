@@ -1,6 +1,8 @@
-from ai.simple_ai import Simple_ai
-from ai.markov_ai import Markov_ai
-from enums import Hand
+from src.ai.simple_ai import Simple_ai
+from src.ai.markov_ai import Markov_ai
+from src.ai.ngram_ai import Ngram_ai
+
+from src.enums import Hand
 
 def janken():
   for i in range(10):
@@ -17,13 +19,20 @@ hand_dict = {'グー': Hand.ROCK, 'チョキ': Hand.SCISSORS, 'パー': Hand.PAP
 
 '''メイン処理'''
 # AIの種類を決定
-ai_num = input('シンプル：1, マルコフ：2を入力')
+ai_num = input('シンプル：1, マルコフ：2，N-gram：3を入力')
 if ai_num == "1":
   AI = Simple_ai()
 elif ai_num == "2":
   AI = Markov_ai()
+elif ai_num == "3":
+  AI = Ngram_ai()
 
 janken()
 
-if input('続けるなら入力せずEnter') == "":
-  janken()
+janken_continue = True
+
+while janken_continue:
+  if input('続けるなら何も入力せずEnter') == "":
+    janken()
+  else:
+    janken_continue = False

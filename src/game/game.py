@@ -1,12 +1,12 @@
 import pygame as pg
 
-import config as cf
-from enums import Hand, Judge_result
-from judge import judge
-from button import Button, Title_button, Ai_hand_img
-from ai.simple_ai import Simple_ai
-from ai.markov_ai import Markov_ai
-from ai.ngram_ai import Ngram_ai
+import src.config as cf
+from src.enums import Hand, Judge_result
+from src.judge import judge
+from src.button import Button, Title_button, Ai_hand_img
+from src.ai.simple_ai import Simple_ai
+from src.ai.markov_ai import Markov_ai
+from src.ai.ngram_ai import Ngram_ai
 
 
 def game(running, title_running, AI_LEVEL, fonts, screen, clock):

@@ -1,10 +1,10 @@
 import sys
 import pygame as pg
 
-import config as cf
+import src.config as cf
 
-from game.game import game
-from game.title import title
+from src.game.game import game
+from src.game.title import title
 
 
 if __name__ == '__main__':

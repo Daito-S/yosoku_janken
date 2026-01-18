@@ -17,18 +17,18 @@ button_W, button_H = 32, 51
 title_button_W, title_button_H = 24, 12
 
 # <-----パス----->
-# ''' BASE_PATH を実行環境に応じて切り替える関数等
-# '''
-# if getattr(sys, 'frozen', False):
-#   # PyInstallerでビルドされた実行ファイルからの実行時
-#   BASE_PATH = sys._MEIPASS
-# else:
-#   # 通常のPythonスクリプトとして実行時
-#   BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+''' BASE_PATH を実行環境に応じて切り替える関数等
+'''
+if getattr(sys, 'frozen', False):
+  # PyInstallerでビルドされた実行ファイルからの実行時
+  BASE_PATH = sys._MEIPASS
+else:
+  # 通常のPythonスクリプトとして実行時
+  BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# # ファイルのパス
-# def resource_path(relative_path):
-#   return os.path.join(BASE_PATH, relative_path)
+# ファイルのパス
+def resource_path(relative_path):
+  return os.path.join(BASE_PATH, relative_path)
 
 ''' パス
 '''
