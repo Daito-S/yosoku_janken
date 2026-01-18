@@ -1,13 +1,13 @@
 ''' 
-  マルコフ連鎖を使ったAI
+  マルコフ連鎖を使ったAI(実質"1-gram")
   プレイヤーが、何の手の次に、何の手を出したかを記録して
   (手を出した後、次はどの手に変えるかについての確率を調べて)
   今出した手から次の手を予測する
 '''
 from random import randint
 
-from ai.base_ai import Base
-from enums import Hand
+from src.ai.base_ai import Base
+from src.enums import Hand
 
 
 class Markov_ai(Base):
@@ -30,9 +30,10 @@ class Markov_ai(Base):
   def prediction(self):
     # 一回目は記録できない、予測できないのでとりあえずランダムで手を出す
     if self.last_player_hand == None:
-      return self.hand_list[randint(0,2)]
+      return self.hand_list[randint(0, 2)]
     # 次のプレイヤーの手を予測
-    predicted = max(self.record[self.last_player_hand], key=self.record.get)
+    predicted = max(self.record[self.last_player_hand],
+                    key=self.record[self.last_player_hand].get)
 
     # 勝てる手を返す
     return self.hand_list[predicted.value - 1]

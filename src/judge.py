@@ -1,4 +1,4 @@
-from enums import Hand, Judge_result
+from src.enums import Hand, Judge_result
 # じゃんけんの勝敗判定の関数
 
 def judge(player_hand, ai_hand):
