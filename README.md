@@ -1,6 +1,7 @@
 # 予測じゃんけん
 ## 概要
-Pythonのpygameで作成したAIとじゃんけんができるシンプルなゲームです。AIは3つのレベルを選べます。
+Pythonのpygameで作成したAIとじゃんけんができるシンプルなゲームです。AIは3つのレベルを選べます。<br>
+.exeファイルのダウンロードは[こちら](https://github.com/Daito-S/yosoku_janken/releases/tag/v1.0.0)
 
 制作時期：2025年12月～2026年1月
 
